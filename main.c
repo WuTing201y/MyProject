@@ -3,7 +3,7 @@
 #include <string.h>
 #include <windows.h>
 #define MAX_COURSES 100
-#define DATA_PATH "C:\\Zoey\\Code Block\\CreditManagementSystem\\courses.txt"
+#define DATA_PATH "C:\\Zoey\\My Project\\courses.txt"
 //定義課程類型(必修/選修)
 typedef enum{ REQUIRED, ELECTIVE } CourseType;
 
