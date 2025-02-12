@@ -34,6 +34,7 @@ void display_menu()
     printf("4. 統計學分\n");
     printf("5. 保存資料\n");
     printf("6. 讀取資料\n");
+    printf("7. 刪除資料\n");
     printf("0. 退出\n");
     printf("請輸入選項：");
 }
@@ -160,6 +161,7 @@ int main()
             case 3: list_courses(); break;
             case 5: save_data(); break;
             case 6: load_data(); break;
+            case 7: delete_data(); break;
         }
     }while(choice != 0);
 
