@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
@@ -72,6 +72,36 @@ void list_courses()
                courses[i].is_completed ? "已修" : "未修"
                );
     }
+}
+void delete_data()
+{
+    char delete_course[100] = {0};
+    printf("請輸入要刪除的課程名稱：");
+    scanf("%s", delete_course);
+
+    //查找課程
+    int found = 0;
+    for(int i = 0; i < course_count; i++)
+    {
+        if(strcmp(delete_course, courses[i].name) == 0){
+            /*不能直接寫 delete_course == courses[i].name 這樣是比較指標位址，而不是內容，正確比較兩字串內容必須使用strcmp  */
+            /*delete_course 會被視為「指向 delete_course[0] 的指標」courses[i].name 會被視為「指向 courses[i].name[0] 的指標*/
+
+            //找到了，把後面的元素都往前一格
+            for(int j = i; j < course_count-1; j++){
+                courses[j] = courses[j+1];
+
+            }
+            course_count--;
+            found = 1;
+            printf("%s 課程已成功刪除", delete_course);
+            break;
+        }
+    }
+    if(!found){
+        printf("找不到%s課程\n", delete_course);
+    }
+
 }
 void save_data()
 {
