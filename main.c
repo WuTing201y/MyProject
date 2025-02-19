@@ -38,7 +38,49 @@ void display_menu()
     printf("0. 退出\n");
     printf("請輸入選項：");
 }
+void edit_courses()
+{
+    char edit_course[100] = {0};
+    printf("請輸入要編輯的課程：");
+    scanf("%s", edit_course);
+    int found = 0;
+    for(int i = 0; i < course_count; i++)
+    {
+        int user_target;
+        if(strcmp(edit_course, courses[i].name) == 0){
+            found = 1;
+            printf("\n1. 課程名稱\n2. 學分數\n3. 課程類型\n4. 是否已修\n5. 預計修讀學期\n請輸入欲修改項目：");
+            scanf("%d", &user_target);
 
+            switch(user_target){
+                case 1:
+                    printf("\n修改課程名稱為：");
+                    scanf("%s", courses[i].name);
+                    break;
+                case 2:
+                    printf("\n修改學分數為：");
+                    scanf("%d", &courses[i].credit);
+                    break;
+                case 3:
+                    printf("\n修改課程類型為(0-必修, 1-選修)：");
+                    scanf("%u", &courses[i].type);
+                    break;
+                case 4:
+                    printf("\n修改是否已修：");
+                    scanf("%d", &courses[i].is_completed);
+                    break;
+                case 5:
+                    printf("\n修改預計修讀學期為(1~8，0表示未規劃)：");
+                    scanf("%d", &courses[i].planned_semester);
+                    break;
+            }
+            printf("已成功編輯！");
+        }
+    }
+    if(!found){
+        printf("找不到%s課程\n", edit_course);
+    }
+}
 void add_courses()
 {
     if(course_count >= MAX_COURSES){
@@ -60,7 +102,6 @@ void add_courses()
     courses[course_count++] = new_course;
     printf("課程新增成功！\n");
 }
-
 void list_courses()
 {
     printf("\n===== 課程列表 =====\n");
@@ -74,7 +115,7 @@ void list_courses()
                );
     }
 }
-void delete_data()
+void delete_courses()
 {
     char delete_course[100] = {0};
     printf("請輸入要刪除的課程名稱：");
@@ -122,7 +163,6 @@ void save_data()
     fclose(file);
     printf("資料已保存！\n");
 }
-
 void load_data()
 {
     FILE* file = fopen(DATA_PATH, "r");
@@ -158,10 +198,11 @@ int main()
         scanf("%d", &choice);
         switch(choice){
             case 1: add_courses(); break;
+            case 2: edit_courses(); break;
             case 3: list_courses(); break;
             case 5: save_data(); break;
             case 6: load_data(); break;
-            case 7: delete_data(); break;
+            case 7: delete_courses(); break;
         }
     }while(choice != 0);
 
